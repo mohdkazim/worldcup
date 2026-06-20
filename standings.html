@@ -1,166 +1,234 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>World Cup 2026 — Standings & Scorers</title>
+<title>World Cup 2026 — Standings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Archivo+Narrow:wght@600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-    :root { color-scheme: light dark; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-           margin: 0; padding: 16px; background: #0b1020; color: #e8eaf0; }
-    h1 { font-size: 1.4rem; margin: 0 0 4px; }
-    .updated { color: #8b93a7; font-size: 0.8rem; margin-bottom: 20px; }
-    h2 { font-size: 1.05rem; margin: 24px 0 8px; color: #c9d2e8; border-bottom: 1px solid #243049; padding-bottom: 4px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 8px;
-            table-layout: fixed; }
-    /* Fixed widths so numbers line up in neat columns across every group. */
-    col.c-team { width: auto; }
-    col.c-num  { width: 34px; }
-    col.c-pts  { width: 42px; }
-    th, td { padding: 7px 4px; text-align: center;
-             border-bottom: 1px solid rgba(255,255,255,0.07); }   /* horizontal lines */
-    th { color: #8b93a7; font-weight: 600; font-size: 0.72rem; text-transform: uppercase;
-         border-bottom: 1px solid rgba(255,255,255,0.18); }
-    td.team, th.team { text-align: left; white-space: nowrap; overflow: hidden;
-                       text-overflow: ellipsis; }
-    /* Vertical separator before the points column so the eye can find it fast. */
-    td.pts, th.pts { border-left: 1px solid rgba(255,255,255,0.12); }
-    tr:last-child td { border-bottom: none; }
-    .qual { box-shadow: inset 3px 0 0 #3ad29f; }
-    .pts { font-weight: 700; color: #fff; }
-    .scorer-rank { color: #8b93a7; width: 28px; }
-    .goals { font-weight: 700; color: #fff; }
-    footer { margin-top: 28px; font-size: 0.72rem; color: #6b7488; }
-    a { color: #6fa8ff; }
+  :root{--bg:#04060d;--line:rgba(255,255,255,.07);--ink:#f2f6ff;--mut:#7c889e;
+    --neon:#16f2c4;--neon2:#2e8bff;--pink:#ff2e7e;--gold:#ffcf3a}
+  *{box-sizing:border-box}
+  body{margin:0;padding:0;color:var(--ink);font-family:'Archivo',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;background:var(--bg);overflow-x:hidden}
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .beam{position:absolute;top:-10%;width:60%;height:120%;filter:blur(30px);opacity:.5;mix-blend-mode:screen}
+  .beam.l{left:-15%;transform:rotate(18deg);background:linear-gradient(180deg,rgba(46,139,255,.55),transparent 60%)}
+  .beam.r{right:-15%;transform:rotate(-18deg);background:linear-gradient(180deg,rgba(22,242,196,.45),transparent 60%)}
+  .beam.c{left:20%;width:60%;background:linear-gradient(180deg,rgba(255,46,126,.28),transparent 55%)}
+  .lamp{position:absolute;top:2%;width:10px;height:10px;border-radius:50%;background:#cfe3ff;
+    box-shadow:0 0 22px 8px rgba(170,210,255,.65)}
+  .lamp.l{left:10%}.lamp.r{right:10%}
+  .crowd{position:absolute;left:0;right:0;bottom:0;height:140px;opacity:.5;
+    background:radial-gradient(2px 2px at 10% 30%,rgba(255,255,255,.5),transparent 60%),
+      radial-gradient(2px 2px at 20% 60%,rgba(255,255,255,.35),transparent 60%),
+      radial-gradient(2px 2px at 32% 40%,rgba(255,255,255,.45),transparent 60%),
+      radial-gradient(2px 2px at 45% 70%,rgba(255,255,255,.3),transparent 60%),
+      radial-gradient(2px 2px at 58% 35%,rgba(255,255,255,.5),transparent 60%),
+      radial-gradient(2px 2px at 70% 60%,rgba(255,255,255,.35),transparent 60%),
+      radial-gradient(2px 2px at 82% 45%,rgba(255,255,255,.45),transparent 60%),
+      radial-gradient(2px 2px at 92% 65%,rgba(255,255,255,.3),transparent 60%);
+    -webkit-mask-image:linear-gradient(0deg,#000,transparent)}
+  .pitchglow{position:absolute;left:50%;bottom:-120px;transform:translateX(-50%);width:140%;height:280px;
+    border-radius:50%;background:radial-gradient(circle,rgba(22,242,196,.10),transparent 60%)}
+  .wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:24px 16px 50px}
+  .hero{position:relative;border-radius:18px;overflow:hidden;margin-bottom:26px;padding:30px 20px 24px;
+    text-align:center;background:linear-gradient(180deg,rgba(10,15,28,.7),rgba(4,6,13,.6));
+    border:1px solid rgba(22,242,196,.18);box-shadow:0 0 40px rgba(22,242,196,.08),inset 0 0 30px rgba(46,139,255,.06)}
+  .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--neon),var(--neon2),var(--pink),transparent)}
+  .kicker{font-family:'Archivo Narrow';font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+    font-size:.7rem;margin:0 0 8px;color:var(--neon);text-shadow:0 0 12px rgba(22,242,196,.6)}
+  .title{font-family:'Archivo';font-weight:900;font-size:2.4rem;line-height:.92;margin:0;
+    text-transform:uppercase;letter-spacing:-.02em;text-shadow:0 0 24px rgba(46,139,255,.35)}
+  .title .yr{color:var(--neon);text-shadow:0 0 18px rgba(22,242,196,.7)}
+  .sub{color:var(--mut);font-size:.74rem;margin-top:10px;font-family:'Roboto Mono'}
+  .nav{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+  .nav a{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+    font-size:.78rem;text-decoration:none;color:var(--ink);padding:10px 18px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);transition:.15s}
+  .nav a.active{background:transparent;color:var(--neon);border-color:var(--neon);
+    box-shadow:0 0 16px rgba(22,242,196,.35),inset 0 0 12px rgba(22,242,196,.12)}
+  .nav a:hover{border-color:var(--neon2);box-shadow:0 0 14px rgba(46,139,255,.3)}
+  .seclabel{display:flex;align-items:center;gap:10px;margin:30px 2px 14px}
+  .seclabel h2{font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.18rem;margin:0;
+    text-shadow:0 0 16px rgba(22,242,196,.25)}
+  .seclabel .bar{height:16px;width:5px;border-radius:3px;background:var(--neon);box-shadow:0 0 10px var(--neon)}
+  .group{background:rgba(10,15,28,.66);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:14px;overflow:hidden;margin-bottom:13px;box-shadow:-6px 0 18px -10px var(--accent)}
+  .ghead{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;
+    background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 16%,transparent),transparent);
+    border-bottom:1px solid var(--line)}
+  .ghead .gname{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.92rem}
+  .ghead .gname b{color:var(--accent);text-shadow:0 0 10px var(--accent)}
+  .ghead .ghint{font-family:'Roboto Mono';font-size:.6rem;color:var(--mut);letter-spacing:.06em}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  col.c-pos{width:26px}col.c-num{width:30px}col.c-pts{width:46px}
+  thead th{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+    font-size:.6rem;color:var(--mut);padding:8px 4px;text-align:center}
+  thead th.team{text-align:left;padding-left:6px}
+  thead th.pts{border-left:1px solid var(--line)}
+  tbody td{padding:0;text-align:center;height:46px;border-top:1px solid var(--line);
+    font-family:'Roboto Mono';font-weight:500;font-size:.9rem;font-variant-numeric:tabular-nums}
+  tbody td.pos{color:var(--mut);font-size:.78rem}
+  tbody td.team{text-align:left;font-family:'Archivo';font-weight:800;font-size:1rem;white-space:nowrap;
+    overflow:hidden;text-overflow:ellipsis;padding-left:6px}
+  tbody td.gd{color:var(--mut)}
+  tbody td.pts{border-left:1px solid var(--line);font-family:'Archivo';font-weight:900;font-size:1.15rem;color:#fff}
+  .flag{width:24px;height:17px;border-radius:3px;object-fit:cover;vertical-align:middle;margin-right:9px;
+    box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  tr.q td{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 12%,transparent),transparent)}
+  tr.q td.pos{color:var(--accent);font-weight:700;text-shadow:0 0 8px var(--accent)}
+  .qdot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);
+    margin-left:8px;vertical-align:middle;box-shadow:0 0 8px var(--accent)}
+  .scorer{display:flex;align-items:center;gap:12px;background:rgba(10,15,28,.66);border:1px solid var(--line);
+    border-radius:12px;padding:11px 14px;margin-bottom:8px}
+  .scorer .rank{font-family:'Archivo';font-weight:900;font-size:1.05rem;width:28px;height:28px;line-height:28px;
+    text-align:center;border-radius:8px;color:#04060d;flex:none;font-variant-numeric:tabular-nums}
+  .scorer:nth-child(1) .rank{background:var(--gold);box-shadow:0 0 14px rgba(255,207,58,.5)}
+  .scorer:nth-child(2) .rank{background:#c0c7d6}
+  .scorer:nth-child(3) .rank{background:#cd8246}
+  .scorer:nth-child(n+4) .rank{background:rgba(255,255,255,.1);color:var(--mut)}
+  .scorer .who{flex:1;min-width:0}
+  .scorer .nm{font-family:'Archivo';font-weight:800;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .scorer .tm{font-family:'Archivo Narrow';color:var(--mut);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em}
+  .scorer .g{font-family:'Archivo';font-weight:900;font-size:1.5rem;color:#fff;display:flex;align-items:baseline;gap:4px}
+  .scorer .g small{font-family:'Archivo Narrow';font-weight:700;font-size:.6rem;color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+  footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
 </head><body>
-<h1>FIFA World Cup 2026</h1>
-<div class="updated">Updated Sat, 20 Jun 2026 17:27:14 GMT · times/data via football-data.org</div>
-<h2>Group Standings</h2>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group A</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/769.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Mexico</td><td>2</td><td>2</td><td>0</td><td>0</td><td>+3</td><td class="pts">6</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/772.png" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">South Korea</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/798.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Czechia</td><td>2</td><td>0</td><td>1</td><td>1</td><td>-1</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/9396.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">South Africa</td><td>2</td><td>0</td><td>1</td><td>1</td><td>-2</td><td class="pts">1</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group B</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/canada.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Canada</td><td>2</td><td>1</td><td>1</td><td>0</td><td>+6</td><td class="pts">4</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/788.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Switzerland</td><td>2</td><td>1</td><td>1</td><td>0</td><td>+3</td><td class="pts">4</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/bosnia.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Bosnia-Herzegovina</td><td>2</td><td>0</td><td>1</td><td>1</td><td>-3</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/8030.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Qatar</td><td>2</td><td>0</td><td>1</td><td>1</td><td>-6</td><td class="pts">1</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group C</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/764.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Brazil</td><td>2</td><td>1</td><td>1</td><td>0</td><td>+3</td><td class="pts">4</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/morocco.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Morocco</td><td>2</td><td>1</td><td>1</td><td>0</td><td>+1</td><td class="pts">4</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/814.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Scotland</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/haiti.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Haiti</td><td>2</td><td>0</td><td>0</td><td>2</td><td>-4</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group D</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/usa.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">United States</td><td>2</td><td>2</td><td>0</td><td>0</td><td>+5</td><td class="pts">6</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/779.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Australia</td><td>2</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/761.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Paraguay</td><td>2</td><td>1</td><td>0</td><td>1</td><td>-2</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/803.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Turkey</td><td>2</td><td>0</td><td>0</td><td>2</td><td>-3</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group E</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/759.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Germany</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+6</td><td class="pts">3</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/787.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Ivory Coast</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+1</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/791.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Ecuador</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-1</td><td class="pts">0</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/curacao.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Curaçao</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-6</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group F</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/792.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Sweden</td><td>2</td><td>1</td><td>1</td><td>0</td><td>+4</td><td class="pts">4</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/8601.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Netherlands</td><td>2</td><td>0</td><td>2</td><td>0</td><td>0</td><td class="pts">2</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/766.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Japan</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/tunisia.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Tunisia</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-4</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group G</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/783.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">New Zealand</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/iran.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Iran</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/805.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Belgium</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/825.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Egypt</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group H</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/758.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Uruguay</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/saudi_arabia.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Saudi Arabia</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/760.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Spain</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/cape_verde.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Cape Verde Islands</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group I</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/813.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Norway</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+3</td><td class="pts">3</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/773.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">France</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+2</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/senegal.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Senegal</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-2</td><td class="pts">0</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/iraq.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Iraq</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-3</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group J</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/762.png" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Argentina</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+3</td><td class="pts">3</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/816.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Austria</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+2</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/8049.png" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Jordan</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-2</td><td class="pts">0</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/algeria.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Algeria</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-3</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group K</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/818.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Colombia</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+2</td><td class="pts">3</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/congo_dr.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Congo DR</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/765.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Portugal</td><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td><td class="pts">1</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/8070.png" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Uzbekistan</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-2</td><td class="pts">0</td></tr>
-</table>
-<h3 style="margin:18px 0 4px;font-size:0.95rem;color:#aebbd9">Group L</h3>
-<table>
-<colgroup><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
-<tr><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/770.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">England</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+2</td><td class="pts">3</td></tr>
-<tr><td class="team" class="qual"><img src="https://crests.football-data.org/ghana.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Ghana</td><td>1</td><td>1</td><td>0</td><td>0</td><td>+1</td><td class="pts">3</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/panama.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Panama</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-1</td><td class="pts">0</td></tr>
-<tr><td class="team"><img src="https://crests.football-data.org/799.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Croatia</td><td>1</td><td>0</td><td>0</td><td>1</td><td>-2</td><td class="pts">0</td></tr>
-</table>
-<h2>Top Scorers</h2>
-<table>
-<tr><th class="scorer-rank">#</th><th class="team">Player</th><th class="team">Team</th><th>Goals</th></tr>
-<tr><td class="scorer-rank">1</td><td class="team">Lionel Messi</td><td class="team"><img src="https://crests.football-data.org/762.png" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Argentina</td><td class="goals">3</td></tr>
-<tr><td class="scorer-rank">2</td><td class="team">Jonathan David</td><td class="team"><img src="https://crests.football-data.org/canada.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Canada</td><td class="goals">3</td></tr>
-<tr><td class="scorer-rank">3</td><td class="team">Cyle Larin</td><td class="team"><img src="https://crests.football-data.org/canada.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Canada</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">4</td><td class="team">Folarin Balogun</td><td class="team"><img src="https://crests.football-data.org/usa.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">United States</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">5</td><td class="team">Ismael Saibari</td><td class="team"><img src="https://crests.football-data.org/morocco.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Morocco</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">6</td><td class="team">Vinicius Junior</td><td class="team"><img src="https://crests.football-data.org/764.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Brazil</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">7</td><td class="team">Kai Havertz</td><td class="team"><img src="https://crests.football-data.org/759.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Germany</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">8</td><td class="team">Yasin Ayari</td><td class="team"><img src="https://crests.football-data.org/792.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Sweden</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">9</td><td class="team">Elijah Just</td><td class="team"><img src="https://crests.football-data.org/783.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">New Zealand</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">10</td><td class="team">Kylian Mbappé</td><td class="team"><img src="https://crests.football-data.org/773.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">France</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">11</td><td class="team">Erling Haaland</td><td class="team"><img src="https://crests.football-data.org/813.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Norway</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">12</td><td class="team">Harry Kane</td><td class="team"><img src="https://crests.football-data.org/770.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">England</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">13</td><td class="team">Johan Manzambi</td><td class="team"><img src="https://crests.football-data.org/788.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Switzerland</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">14</td><td class="team">Matheus Cunha</td><td class="team"><img src="https://crests.football-data.org/764.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Brazil</td><td class="goals">2</td></tr>
-<tr><td class="scorer-rank">15</td><td class="team">Brian Brobbey</td><td class="team"><img src="https://crests.football-data.org/8601.svg" alt="" width="20" height="14" style="vertical-align:middle;margin-right:7px;border-radius:2px;object-fit:cover" onerror="this.style.display='none'">Netherlands</td><td class="goals">2</td></tr>
-</table>
-<footer>Auto-updated every few hours. Green bar = top 2 (advancing). Data may lag live play.</footer>
-</body></html>
+<div class="bg"><div class="beam l"></div><div class="beam r"></div><div class="beam c"></div><div class="lamp l"></div><div class="lamp r"></div><div class="pitchglow"></div><div class="crowd"></div></div>
+<div class="wrap">
+<header class="hero">
+<p class="kicker">FIFA World Cup</p>
+<h1 class="title">World Cup <span class="yr">2026</span></h1>
+<p class="sub">Live standings &amp; scorers · updated Sat, 20 Jun 2026 18:33:25 GMT</p>
+<nav class="nav"><a class="active" href="standings.html">Standings</a><a href="bracket.html">Knockout Bracket →</a></nav>
+</header>
+<div class="seclabel"><span class="bar"></span><h2>Group Standings</h2></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP A</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/769.svg" alt="" onerror="this.style.display='none'">Mexico<span class="qdot"></span></td><td>2</td><td>2</td><td>0</td><td>0</td><td class="gd">+3</td><td class="pts">6</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/772.png" alt="" onerror="this.style.display='none'">South Korea<span class="qdot"></span></td><td>2</td><td>1</td><td>0</td><td>1</td><td class="gd">0</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/798.svg" alt="" onerror="this.style.display='none'">Czechia</td><td>2</td><td>0</td><td>1</td><td>1</td><td class="gd">-1</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/9396.svg" alt="" onerror="this.style.display='none'">South Africa</td><td>2</td><td>0</td><td>1</td><td>1</td><td class="gd">-2</td><td class="pts">1</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP B</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'">Canada<span class="qdot"></span></td><td>2</td><td>1</td><td>1</td><td>0</td><td class="gd">+6</td><td class="pts">4</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/788.svg" alt="" onerror="this.style.display='none'">Switzerland<span class="qdot"></span></td><td>2</td><td>1</td><td>1</td><td>0</td><td class="gd">+3</td><td class="pts">4</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/bosnia.svg" alt="" onerror="this.style.display='none'">Bosnia-Herzegovina</td><td>2</td><td>0</td><td>1</td><td>1</td><td class="gd">-3</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/8030.svg" alt="" onerror="this.style.display='none'">Qatar</td><td>2</td><td>0</td><td>1</td><td>1</td><td class="gd">-6</td><td class="pts">1</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP C</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'">Brazil<span class="qdot"></span></td><td>2</td><td>1</td><td>1</td><td>0</td><td class="gd">+3</td><td class="pts">4</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/morocco.svg" alt="" onerror="this.style.display='none'">Morocco<span class="qdot"></span></td><td>2</td><td>1</td><td>1</td><td>0</td><td class="gd">+1</td><td class="pts">4</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/814.svg" alt="" onerror="this.style.display='none'">Scotland</td><td>2</td><td>1</td><td>0</td><td>1</td><td class="gd">0</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/haiti.svg" alt="" onerror="this.style.display='none'">Haiti</td><td>2</td><td>0</td><td>0</td><td>2</td><td class="gd">-4</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP D</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/usa.svg" alt="" onerror="this.style.display='none'">United States<span class="qdot"></span></td><td>2</td><td>2</td><td>0</td><td>0</td><td class="gd">+5</td><td class="pts">6</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/779.svg" alt="" onerror="this.style.display='none'">Australia<span class="qdot"></span></td><td>2</td><td>1</td><td>0</td><td>1</td><td class="gd">0</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/761.svg" alt="" onerror="this.style.display='none'">Paraguay</td><td>2</td><td>1</td><td>0</td><td>1</td><td class="gd">-2</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/803.svg" alt="" onerror="this.style.display='none'">Turkey</td><td>2</td><td>0</td><td>0</td><td>2</td><td class="gd">-3</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP E</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/759.svg" alt="" onerror="this.style.display='none'">Germany<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+6</td><td class="pts">3</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/787.svg" alt="" onerror="this.style.display='none'">Ivory Coast<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+1</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/791.svg" alt="" onerror="this.style.display='none'">Ecuador</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-1</td><td class="pts">0</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/curacao.svg" alt="" onerror="this.style.display='none'">Curaçao</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-6</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP F</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/8601.svg" alt="" onerror="this.style.display='none'">Netherlands<span class="qdot"></span></td><td>2</td><td>1</td><td>1</td><td>0</td><td class="gd">+3</td><td class="pts">4</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/792.svg" alt="" onerror="this.style.display='none'">Sweden<span class="qdot"></span></td><td>2</td><td>1</td><td>0</td><td>1</td><td class="gd">+1</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/766.svg" alt="" onerror="this.style.display='none'">Japan</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/tunisia.svg" alt="" onerror="this.style.display='none'">Tunisia</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-4</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP G</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/783.svg" alt="" onerror="this.style.display='none'">New Zealand<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/iran.svg" alt="" onerror="this.style.display='none'">Iran<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/805.svg" alt="" onerror="this.style.display='none'">Belgium</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/825.svg" alt="" onerror="this.style.display='none'">Egypt</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP H</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/758.svg" alt="" onerror="this.style.display='none'">Uruguay<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/saudi_arabia.svg" alt="" onerror="this.style.display='none'">Saudi Arabia<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/760.svg" alt="" onerror="this.style.display='none'">Spain</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/cape_verde.svg" alt="" onerror="this.style.display='none'">Cape Verde Islands</td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP I</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/813.svg" alt="" onerror="this.style.display='none'">Norway<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+3</td><td class="pts">3</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/773.svg" alt="" onerror="this.style.display='none'">France<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+2</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/senegal.svg" alt="" onerror="this.style.display='none'">Senegal</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-2</td><td class="pts">0</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/iraq.svg" alt="" onerror="this.style.display='none'">Iraq</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-3</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP J</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/762.png" alt="" onerror="this.style.display='none'">Argentina<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+3</td><td class="pts">3</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/816.svg" alt="" onerror="this.style.display='none'">Austria<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+2</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/8049.png" alt="" onerror="this.style.display='none'">Jordan</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-2</td><td class="pts">0</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/algeria.svg" alt="" onerror="this.style.display='none'">Algeria</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-3</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP K</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/818.svg" alt="" onerror="this.style.display='none'">Colombia<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+2</td><td class="pts">3</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/congo_dr.svg" alt="" onerror="this.style.display='none'">Congo DR<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/765.svg" alt="" onerror="this.style.display='none'">Portugal<span class="qdot"></span></td><td>1</td><td>0</td><td>1</td><td>0</td><td class="gd">0</td><td class="pts">1</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/8070.png" alt="" onerror="this.style.display='none'">Uzbekistan</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-2</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="group" style="--accent:#16f2c4">
+<div class="ghead"><span class="gname">Group <b>GROUP L</b></span><span class="ghint">Top 2 advance</span></div>
+<table><colgroup><col class="c-pos"><col class="c-team"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-num"><col class="c-pts"></colgroup>
+<thead><tr><th></th><th class="team">Team</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th class="pts">Pts</th></tr></thead><tbody>
+<tr class="q"><td class="pos">1</td><td class="team"><img class="flag" src="https://crests.football-data.org/770.svg" alt="" onerror="this.style.display='none'">England<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+2</td><td class="pts">3</td></tr>
+<tr class="q"><td class="pos">2</td><td class="team"><img class="flag" src="https://crests.football-data.org/ghana.svg" alt="" onerror="this.style.display='none'">Ghana<span class="qdot"></span></td><td>1</td><td>1</td><td>0</td><td>0</td><td class="gd">+1</td><td class="pts">3</td></tr>
+<tr class=""><td class="pos">3</td><td class="team"><img class="flag" src="https://crests.football-data.org/panama.svg" alt="" onerror="this.style.display='none'">Panama</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-1</td><td class="pts">0</td></tr>
+<tr class=""><td class="pos">4</td><td class="team"><img class="flag" src="https://crests.football-data.org/799.svg" alt="" onerror="this.style.display='none'">Croatia</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="gd">-2</td><td class="pts">0</td></tr>
+</tbody></table></div>
+<div class="seclabel"><span class="bar"></span><h2>Top Scorers</h2></div>
+<div class="scorer"><div class="rank">1</div><img class="flag" src="https://crests.football-data.org/762.png" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Lionel Messi</div><div class="tm">Argentina</div></div><div class="g">3<small>goals</small></div></div>
+<div class="scorer"><div class="rank">2</div><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Jonathan David</div><div class="tm">Canada</div></div><div class="g">3<small>goals</small></div></div>
+<div class="scorer"><div class="rank">3</div><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Cyle Larin</div><div class="tm">Canada</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">4</div><img class="flag" src="https://crests.football-data.org/usa.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Folarin Balogun</div><div class="tm">United States</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">5</div><img class="flag" src="https://crests.football-data.org/morocco.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Ismael Saibari</div><div class="tm">Morocco</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">6</div><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Vinicius Junior</div><div class="tm">Brazil</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">7</div><img class="flag" src="https://crests.football-data.org/759.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Kai Havertz</div><div class="tm">Germany</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">8</div><img class="flag" src="https://crests.football-data.org/792.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Yasin Ayari</div><div class="tm">Sweden</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">9</div><img class="flag" src="https://crests.football-data.org/783.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Elijah Just</div><div class="tm">New Zealand</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">10</div><img class="flag" src="https://crests.football-data.org/773.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Kylian Mbappé</div><div class="tm">France</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">11</div><img class="flag" src="https://crests.football-data.org/813.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Erling Haaland</div><div class="tm">Norway</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">12</div><img class="flag" src="https://crests.football-data.org/770.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Harry Kane</div><div class="tm">England</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">13</div><img class="flag" src="https://crests.football-data.org/788.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Johan Manzambi</div><div class="tm">Switzerland</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">14</div><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Matheus Cunha</div><div class="tm">Brazil</div></div><div class="g">2<small>goals</small></div></div>
+<div class="scorer"><div class="rank">15</div><img class="flag" src="https://crests.football-data.org/8601.svg" alt="" onerror="this.style.display='none'"><div class="who"><div class="nm">Brian Brobbey</div><div class="tm">Netherlands</div></div><div class="g">2<small>goals</small></div></div>
+<footer>Auto-updated every few hours · colored dot = advancing · data may lag live play</footer>
+</div></body></html>
