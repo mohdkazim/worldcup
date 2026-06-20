@@ -2,162 +2,310 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>World Cup 2026 — Knockout Bracket</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Archivo+Narrow:wght@600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-    :root { color-scheme: light dark; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-           margin: 0; padding: 16px; background: #0b1020; color: #e8eaf0; }
-    h1 { font-size: 1.4rem; margin: 0 0 4px; }
-    .updated { color: #8b93a7; font-size: 0.8rem; margin-bottom: 20px; }
-    h2 { font-size: 1.05rem; margin: 24px 0 10px; color: #c9d2e8;
-         border-bottom: 1px solid #243049; padding-bottom: 5px; }
-    .tie { background: rgba(255,255,255,0.03); border-radius: 10px;
-           padding: 10px 12px; margin-bottom: 8px; }
-    .teams { display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
-    .side { font-weight: 600; }
-    .side.tbd { color: #6b7488; font-weight: 500; font-style: italic; }
-    .score { font-weight: 700; color: #fff; padding: 0 10px; white-space: nowrap; }
-    .vs { color: #6b7488; padding: 0 10px; }
-    .meta { color: #8b93a7; font-size: 0.72rem; margin-top: 4px; }
-    .winner { color: #3ad29f; }
-    footer { margin-top: 28px; font-size: 0.72rem; color: #6b7488; }
-    a { color: #6fa8ff; }
+  :root{--bg:#04060d;--line:rgba(255,255,255,.07);--ink:#f2f6ff;--mut:#7c889e;
+    --neon:#16f2c4;--neon2:#2e8bff;--pink:#ff2e7e;--gold:#ffcf3a;--green:#16f2c4}
+  *{box-sizing:border-box}
+  body{margin:0;padding:0;color:var(--ink);font-family:'Archivo',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;background:var(--bg);overflow-x:hidden}
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .beam{position:absolute;top:-10%;width:60%;height:120%;filter:blur(30px);opacity:.5;mix-blend-mode:screen}
+  .beam.l{left:-15%;transform:rotate(18deg);background:linear-gradient(180deg,rgba(46,139,255,.55),transparent 60%)}
+  .beam.r{right:-15%;transform:rotate(-18deg);background:linear-gradient(180deg,rgba(22,242,196,.45),transparent 60%)}
+  .beam.c{left:20%;width:60%;background:linear-gradient(180deg,rgba(255,46,126,.28),transparent 55%)}
+  .lamp{position:absolute;top:2%;width:10px;height:10px;border-radius:50%;background:#cfe3ff;
+    box-shadow:0 0 22px 8px rgba(170,210,255,.65)}
+  .lamp.l{left:10%}.lamp.r{right:10%}
+  .crowd{position:absolute;left:0;right:0;bottom:0;height:140px;opacity:.5;
+    background:radial-gradient(2px 2px at 10% 30%,rgba(255,255,255,.5),transparent 60%),
+      radial-gradient(2px 2px at 25% 60%,rgba(255,255,255,.35),transparent 60%),
+      radial-gradient(2px 2px at 40% 40%,rgba(255,255,255,.45),transparent 60%),
+      radial-gradient(2px 2px at 58% 35%,rgba(255,255,255,.5),transparent 60%),
+      radial-gradient(2px 2px at 72% 60%,rgba(255,255,255,.35),transparent 60%),
+      radial-gradient(2px 2px at 90% 50%,rgba(255,255,255,.4),transparent 60%);
+    -webkit-mask-image:linear-gradient(0deg,#000,transparent)}
+  .pitchglow{position:absolute;left:50%;bottom:-120px;transform:translateX(-50%);width:140%;height:280px;
+    border-radius:50%;background:radial-gradient(circle,rgba(22,242,196,.10),transparent 60%)}
+  .wrap{position:relative;z-index:1;max-width:600px;margin:0 auto;padding:24px 16px 50px}
+  .hero{position:relative;border-radius:18px;overflow:hidden;margin-bottom:26px;padding:30px 20px 24px;
+    text-align:center;background:linear-gradient(180deg,rgba(10,15,28,.7),rgba(4,6,13,.6));
+    border:1px solid rgba(22,242,196,.18);box-shadow:0 0 40px rgba(22,242,196,.08),inset 0 0 30px rgba(46,139,255,.06)}
+  .hero::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--neon),var(--neon2),var(--pink),transparent)}
+  .kicker{font-family:'Archivo Narrow';font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+    font-size:.7rem;margin:0 0 8px;color:var(--neon);text-shadow:0 0 12px rgba(22,242,196,.6)}
+  .title{font-family:'Archivo';font-weight:900;font-size:2.1rem;line-height:.92;margin:0;
+    text-transform:uppercase;letter-spacing:-.02em;text-shadow:0 0 24px rgba(46,139,255,.35)}
+  .title .yr{color:var(--neon);text-shadow:0 0 18px rgba(22,242,196,.7)}
+  .sub{color:var(--mut);font-size:.74rem;margin-top:10px;font-family:'Roboto Mono'}
+  .nav{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+  .nav a{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+    font-size:.78rem;text-decoration:none;color:var(--ink);padding:10px 18px;border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);transition:.15s}
+  .nav a.active{background:transparent;color:var(--neon);border-color:var(--neon);
+    box-shadow:0 0 16px rgba(22,242,196,.35),inset 0 0 12px rgba(22,242,196,.12)}
+  .nav a:hover{border-color:var(--neon2);box-shadow:0 0 14px rgba(46,139,255,.3)}
+  .stage{font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.12rem;margin:28px 2px 12px;
+    display:flex;align-items:center;gap:10px;text-shadow:0 0 16px rgba(22,242,196,.25)}
+  .stage::before{content:"";height:16px;width:5px;border-radius:3px;background:var(--neon);box-shadow:0 0 10px var(--neon)}
+  .tie{background:rgba(10,15,28,.66);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+    margin-bottom:9px;box-shadow:0 0 0 1px rgba(255,255,255,.02)}
+  .teams{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .side{display:flex;align-items:center;gap:8px;min-width:0;flex:1;font-family:'Archivo';font-weight:800;font-size:1rem}
+  .side.away{justify-content:flex-end;text-align:right}
+  .side .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side.tbd .nm{color:#5d6b85;font-weight:600;font-family:'Archivo Narrow';text-transform:uppercase;
+    letter-spacing:.04em;font-size:.82rem}
+  .side.winner .nm{color:var(--neon);text-shadow:0 0 10px rgba(22,242,196,.45)}
+  .flag{width:24px;height:17px;border-radius:3px;object-fit:cover;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  .mid{flex:none;padding:0 6px;text-align:center}
+  .score{font-family:'Archivo';font-weight:900;font-size:1.05rem;color:#fff;white-space:nowrap}
+  .pens{display:block;font-family:'Roboto Mono';font-weight:500;font-size:.6rem;color:var(--mut)}
+  .vs{font-family:'Archivo Narrow';font-weight:700;color:#5d6b85;font-size:.78rem}
+  .meta{margin-top:7px;font-family:'Roboto Mono';font-size:.66rem;color:var(--mut);letter-spacing:.04em}
+  footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
 </head><body>
-<h1>World Cup 2026 — Knockout Bracket</h1>
-<div class="updated">Updated Sat, 20 Jun 2026 17:31:52 GMT · teams fill in as they qualify</div>
-<h2>Round of 32</h2>
-<div class="tie">
-<div class="teams"><span class="side">Runner-up A</span><span class="vs">vs</span><span class="side">Runner-up B</span></div>
+<div class="bg"><div class="beam l"></div><div class="beam r"></div><div class="beam c"></div><div class="lamp l"></div><div class="lamp r"></div><div class="pitchglow"></div><div class="crowd"></div></div>
+<div class="wrap">
+<header class="hero">
+<p class="kicker">FIFA World Cup</p>
+<h1 class="title">Knockout <span class="yr">Bracket</span></h1>
+<p class="sub">Teams fill in as they qualify · updated Sat, 20 Jun 2026 18:31:14 GMT</p>
+<nav class="nav"><a href="standings.html">← Standings</a><a class="active" href="bracket.html">Knockout Bracket</a></nav>
+</header>
+<div class="stage">Round of 32</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Runner-up A</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up B</span></div>
+</div>
 <div class="meta">Jun 28</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner E</span><span class="vs">vs</span><span class="side">3rd A/B/C/D/F</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner E</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd A/B/C/D/F</span></div>
+</div>
 <div class="meta">Jun 29</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner F</span><span class="vs">vs</span><span class="side">Runner-up C</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner F</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up C</span></div>
+</div>
 <div class="meta">Jun 29</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner C</span><span class="vs">vs</span><span class="side">Runner-up F</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner C</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up F</span></div>
+</div>
 <div class="meta">Jun 30</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner I</span><span class="vs">vs</span><span class="side">3rd C/D/F/G/H</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner I</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd C/D/F/G/H</span></div>
+</div>
 <div class="meta">Jun 30</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Runner-up E</span><span class="vs">vs</span><span class="side">Runner-up I</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Runner-up E</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up I</span></div>
+</div>
 <div class="meta">Jun 30</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner A</span><span class="vs">vs</span><span class="side">3rd C/E/F/H/I</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner A</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd C/E/F/H/I</span></div>
+</div>
 <div class="meta">Jul 1</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner L</span><span class="vs">vs</span><span class="side">3rd E/H/I/J/K</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner L</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd E/H/I/J/K</span></div>
+</div>
 <div class="meta">Jul 1</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner D</span><span class="vs">vs</span><span class="side">3rd B/E/F/I/J</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner D</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd B/E/F/I/J</span></div>
+</div>
 <div class="meta">Jul 1</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner G</span><span class="vs">vs</span><span class="side">3rd A/E/H/I/J</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner G</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd A/E/H/I/J</span></div>
+</div>
 <div class="meta">Jul 2</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Runner-up K</span><span class="vs">vs</span><span class="side">Runner-up L</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Runner-up K</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up L</span></div>
+</div>
 <div class="meta">Jul 2</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner H</span><span class="vs">vs</span><span class="side">Runner-up J</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner H</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up J</span></div>
+</div>
 <div class="meta">Jul 2</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner B</span><span class="vs">vs</span><span class="side">3rd E/F/G/I/J</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner B</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd E/F/G/I/J</span></div>
+</div>
 <div class="meta">Jul 3</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner J</span><span class="vs">vs</span><span class="side">Runner-up H</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner J</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up H</span></div>
+</div>
 <div class="meta">Jul 3</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner K</span><span class="vs">vs</span><span class="side">3rd D/E/I/J/L</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner K</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">3rd D/E/I/J/L</span></div>
+</div>
 <div class="meta">Jul 3</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Runner-up D</span><span class="vs">vs</span><span class="side">Runner-up G</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Runner-up D</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Runner-up G</span></div>
+</div>
 <div class="meta">Jul 4</div>
 </div>
-<h2>Round of 16</h2>
-<div class="tie">
-<div class="teams"><span class="side">Winner M74</span><span class="vs">vs</span><span class="side">Winner M77</span></div>
+<div class="stage">Round of 16</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M74</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M77</span></div>
+</div>
 <div class="meta">Jul 4</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M73</span><span class="vs">vs</span><span class="side">Winner M75</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M73</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M75</span></div>
+</div>
 <div class="meta">Jul 4</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M76</span><span class="vs">vs</span><span class="side">Winner M78</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M76</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M78</span></div>
+</div>
 <div class="meta">Jul 5</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M79</span><span class="vs">vs</span><span class="side">Winner M80</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M79</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M80</span></div>
+</div>
 <div class="meta">Jul 6</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M83</span><span class="vs">vs</span><span class="side">Winner M84</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M83</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M84</span></div>
+</div>
 <div class="meta">Jul 6</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M81</span><span class="vs">vs</span><span class="side">Winner M82</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M81</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M82</span></div>
+</div>
 <div class="meta">Jul 7</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M86</span><span class="vs">vs</span><span class="side">Winner M88</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M86</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M88</span></div>
+</div>
 <div class="meta">Jul 7</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M85</span><span class="vs">vs</span><span class="side">Winner M87</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M85</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M87</span></div>
+</div>
 <div class="meta">Jul 7</div>
 </div>
-<h2>Quarter-finals</h2>
-<div class="tie">
-<div class="teams"><span class="side">Winner M89</span><span class="vs">vs</span><span class="side">Winner M90</span></div>
+<div class="stage">Quarter-finals</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M89</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M90</span></div>
+</div>
 <div class="meta">Jul 9</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M93</span><span class="vs">vs</span><span class="side">Winner M94</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M93</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M94</span></div>
+</div>
 <div class="meta">Jul 10</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M91</span><span class="vs">vs</span><span class="side">Winner M92</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M91</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M92</span></div>
+</div>
 <div class="meta">Jul 11</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M95</span><span class="vs">vs</span><span class="side">Winner M96</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M95</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M96</span></div>
+</div>
 <div class="meta">Jul 12</div>
 </div>
-<h2>Semi-finals</h2>
-<div class="tie">
-<div class="teams"><span class="side">Winner M97</span><span class="vs">vs</span><span class="side">Winner M98</span></div>
+<div class="stage">Semi-finals</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M97</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M98</span></div>
+</div>
 <div class="meta">Jul 14</div>
 </div>
-<div class="tie">
-<div class="teams"><span class="side">Winner M99</span><span class="vs">vs</span><span class="side">Winner M100</span></div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M99</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M100</span></div>
+</div>
 <div class="meta">Jul 15</div>
 </div>
-<h2>Third-place Play-off</h2>
-<div class="tie">
-<div class="teams"><span class="side">Loser M101</span><span class="vs">vs</span><span class="side">Loser M102</span></div>
+<div class="stage">Third-place Play-off</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Loser M101</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Loser M102</span></div>
+</div>
 <div class="meta">Jul 18</div>
 </div>
-<h2>Final</h2>
-<div class="tie">
-<div class="teams"><span class="side">Winner M101</span><span class="vs">vs</span><span class="side">Winner M102</span></div>
+<div class="stage">Final</div>
+<div class="tie"><div class="teams">
+<div class="side tbd"><span class="nm">Winner M101</span></div>
+<div class="mid"><span class="vs">vs</span></div>
+<div class="side away tbd"><span class="nm">Winner M102</span></div>
+</div>
 <div class="meta">Jul 19</div>
 </div>
-<footer>Auto-updated every few hours. Green = winner. Data may lag live play.</footer>
-</body></html>
+<footer>Auto-updated every few hours · neon = winner · data may lag live play</footer>
+</div></body></html>
