@@ -75,6 +75,8 @@
   .fbtn:hover{border-color:var(--neon2)}
   .fbtn.active{background:transparent;color:var(--neon);border-color:var(--neon);
     box-shadow:0 0 12px rgba(22,242,196,.3),inset 0 0 10px rgba(22,242,196,.1)}
+  .fbtn.today{color:var(--gold);border-color:rgba(255,207,58,.5)}
+  .fbtn.today:hover{border-color:var(--gold);box-shadow:0 0 12px rgba(255,207,58,.35)}
   .datehead.hidden,.match.hidden{display:none}
   footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
@@ -84,11 +86,11 @@
 <header class="hero">
 <p class="kicker">FIFA World Cup</p>
 <h1 class="title">Match <span class="yr">Schedule</span></h1>
-<p class="sub">All fixtures · updated Sat, 20 Jun 2026 20:23:08 GMT</p>
+<p class="sub">All fixtures · updated Sat, 20 Jun 2026 20:30:51 GMT</p>
 <p class="tz" id="tzLabel">Times in your local timezone</p>
 <nav class="nav"><a href="standings.html">Standings</a><a class="active" href="schedule.html">Schedule</a><a href="bracket.html">Bracket →</a></nav>
 </header>
-<div class="filters" id="filters"><button class="fbtn active" data-filter="ALL">All</button><button class="fbtn" data-filter="A">A</button><button class="fbtn" data-filter="B">B</button><button class="fbtn" data-filter="C">C</button><button class="fbtn" data-filter="D">D</button><button class="fbtn" data-filter="E">E</button><button class="fbtn" data-filter="F">F</button><button class="fbtn" data-filter="G">G</button><button class="fbtn" data-filter="H">H</button><button class="fbtn" data-filter="I">I</button><button class="fbtn" data-filter="J">J</button><button class="fbtn" data-filter="K">K</button><button class="fbtn" data-filter="L">L</button><button class="fbtn" data-filter="KO">KO</button></div>
+<div class="filters" id="filters"><button class="fbtn today" id="todayBtn">Today</button><button class="fbtn active" data-filter="ALL">All</button><button class="fbtn" data-filter="A">A</button><button class="fbtn" data-filter="B">B</button><button class="fbtn" data-filter="C">C</button><button class="fbtn" data-filter="D">D</button><button class="fbtn" data-filter="E">E</button><button class="fbtn" data-filter="F">F</button><button class="fbtn" data-filter="G">G</button><button class="fbtn" data-filter="H">H</button><button class="fbtn" data-filter="I">I</button><button class="fbtn" data-filter="J">J</button><button class="fbtn" data-filter="K">K</button><button class="fbtn" data-filter="L">L</button><button class="fbtn" data-filter="KO">KO</button></div>
 <div class="datehead" data-datekey="2026-06-11">2026-06-11</div>
 <div class="match" data-group="A"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/769.svg" alt="" onerror="this.style.display='none'"><span class="nm">Mexico</span></div>
@@ -886,34 +888,34 @@
         }
       });
 
-      // Scroll to today's group (viewer-local). If today is before the tournament,
-      // stay at the top; if a date is missing (no matches that day), pick the next
-      // day that has matches; if the tournament is over, go to the last day.
-      var todayKey = localKey(new Date());
-      var target = null;
-      var firstKey = heads.length ? heads[0].getAttribute('data-localday') : null;
-      var lastKey  = heads.length ? heads[heads.length-1].getAttribute('data-localday') : null;
-
-      if(firstKey && todayKey < firstKey){
-        target = null;                       // tournament hasn't started — top of page
-      } else if(lastKey && todayKey > lastKey){
-        target = heads[heads.length-1];      // tournament finished — last day
-      } else {
-        // find exact today, else the first day on/after today
-        for(var i=0;i<heads.length;i++){
-          var k = heads[i].getAttribute('data-localday');
-          if(k === todayKey){ target = heads[i]; break; }
-          if(k > todayKey){ target = heads[i]; break; }  // next upcoming day
+      // Expose a "scroll to today" helper for the Today button (does NOT auto-fire).
+      // today (viewer-local). If before the tournament -> first day; after -> last day;
+      // a day with no matches -> next day that has matches.
+      window.__scrollToToday = function(){
+        var visibleHeads = [];
+        heads.forEach(function(h){ if(!h.classList.contains('hidden')) visibleHeads.push(h); });
+        if(!visibleHeads.length) return;
+        var todayKey = localKey(new Date());
+        var target = null;
+        var firstKey = visibleHeads[0].getAttribute('data-localday');
+        var lastKey  = visibleHeads[visibleHeads.length-1].getAttribute('data-localday');
+        if(firstKey && todayKey < firstKey){
+          target = visibleHeads[0];                         // not started -> first day
+        } else if(lastKey && todayKey > lastKey){
+          target = visibleHeads[visibleHeads.length-1];     // finished -> last day
+        } else {
+          for(var i=0;i<visibleHeads.length;i++){
+            var k = visibleHeads[i].getAttribute('data-localday');
+            if(k === todayKey){ target = visibleHeads[i]; break; }
+            if(k > todayKey){ target = visibleHeads[i]; break; }
+          }
+          if(!target) target = visibleHeads[visibleHeads.length-1];
         }
-      }
-
-      if(target){
-        // slight delay so fonts/layout settle, then scroll with a little top offset
-        setTimeout(function(){
+        if(target){
           var y = target.getBoundingClientRect().top + window.pageYOffset - 12;
-          window.scrollTo({top:y, behavior:'instant' in window ? 'instant' : 'auto'});
-        }, 60);
-      }
+          window.scrollTo({top:y, behavior:'smooth'});
+        }
+      };
     }catch(e){ /* if anything fails, the UTC fallbacks remain visible */ }
 
     // ---- Group filtering ----
@@ -948,6 +950,20 @@
           window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
         });
       });
+
+      // "Today" button: reset to All (so today's matches are visible), then scroll to today.
+      var todayBtn = document.getElementById('todayBtn');
+      if(todayBtn){
+        todayBtn.addEventListener('click', function(){
+          var allBtn = document.querySelector('.fbtn[data-filter="ALL"]');
+          if(allBtn){
+            buttons.forEach(function(b){ b.classList.remove('active'); });
+            allBtn.classList.add('active');
+            applyFilter('ALL');
+          }
+          if(window.__scrollToToday) window.__scrollToToday();
+        });
+      }
     }catch(e){ /* filtering optional; page still works without it */ }
   })();
   </script>
