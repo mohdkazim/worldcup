@@ -68,6 +68,14 @@
   .pens{display:block;font-family:'Roboto Mono';font-weight:500;font-size:.58rem;color:var(--mut)}
   .ft{display:block;font-family:'Archivo Narrow';font-weight:700;font-size:.55rem;color:var(--mut);text-transform:uppercase;letter-spacing:.1em}
   .meta{margin-top:7px;font-family:'Roboto Mono';font-size:.64rem;color:var(--mut);letter-spacing:.04em}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:0 2px 6px}
+  .fbtn{font-family:'Archivo Narrow';font-weight:700;font-size:.82rem;letter-spacing:.04em;
+    color:var(--ink);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;min-width:38px;padding:7px 12px;cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent}
+  .fbtn:hover{border-color:var(--neon2)}
+  .fbtn.active{background:transparent;color:var(--neon);border-color:var(--neon);
+    box-shadow:0 0 12px rgba(22,242,196,.3),inset 0 0 10px rgba(22,242,196,.1)}
+  .datehead.hidden,.match.hidden{display:none}
   footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
 </head><body>
@@ -76,12 +84,13 @@
 <header class="hero">
 <p class="kicker">FIFA World Cup</p>
 <h1 class="title">Match <span class="yr">Schedule</span></h1>
-<p class="sub">All fixtures · updated Sat, 20 Jun 2026 20:08:25 GMT</p>
+<p class="sub">All fixtures · updated Sat, 20 Jun 2026 20:22:59 GMT</p>
 <p class="tz" id="tzLabel">Times in your local timezone</p>
 <nav class="nav"><a href="standings.html">Standings</a><a class="active" href="schedule.html">Schedule</a><a href="bracket.html">Bracket →</a></nav>
 </header>
+<div class="filters" id="filters"><button class="fbtn active" data-filter="ALL">All</button><button class="fbtn" data-filter="A">A</button><button class="fbtn" data-filter="B">B</button><button class="fbtn" data-filter="C">C</button><button class="fbtn" data-filter="D">D</button><button class="fbtn" data-filter="E">E</button><button class="fbtn" data-filter="F">F</button><button class="fbtn" data-filter="G">G</button><button class="fbtn" data-filter="H">H</button><button class="fbtn" data-filter="I">I</button><button class="fbtn" data-filter="J">J</button><button class="fbtn" data-filter="K">K</button><button class="fbtn" data-filter="L">L</button><button class="fbtn" data-filter="KO">KO</button></div>
 <div class="datehead" data-datekey="2026-06-11">2026-06-11</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/769.svg" alt="" onerror="this.style.display='none'"><span class="nm">Mexico</span></div>
 <div class="mid"><span class="score">2-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">South Africa</span><img class="flag" src="https://crests.football-data.org/9396.svg" alt="" onerror="this.style.display='none'"></div>
@@ -89,14 +98,14 @@
 <div class="meta">Group A</div>
 </div>
 <div class="datehead" data-datekey="2026-06-12">2026-06-12</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/772.png" alt="" onerror="this.style.display='none'"><span class="nm">South Korea</span></div>
 <div class="mid"><span class="score">2-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Czechia</span><img class="flag" src="https://crests.football-data.org/798.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group A</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'"><span class="nm">Canada</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Bosnia-Herzegovina</span><img class="flag" src="https://crests.football-data.org/bosnia.svg" alt="" onerror="this.style.display='none'"></div>
@@ -104,21 +113,21 @@
 <div class="meta">Group B</div>
 </div>
 <div class="datehead" data-datekey="2026-06-13">2026-06-13</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/usa.svg" alt="" onerror="this.style.display='none'"><span class="nm">United States</span></div>
 <div class="mid"><span class="score">4-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Paraguay</span><img class="flag" src="https://crests.football-data.org/761.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/8030.svg" alt="" onerror="this.style.display='none'"><span class="nm">Qatar</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Switzerland</span><img class="flag" src="https://crests.football-data.org/788.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group B</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'"><span class="nm">Brazil</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Morocco</span><img class="flag" src="https://crests.football-data.org/morocco.svg" alt="" onerror="this.style.display='none'"></div>
@@ -126,35 +135,35 @@
 <div class="meta">Group C</div>
 </div>
 <div class="datehead" data-datekey="2026-06-14">2026-06-14</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/haiti.svg" alt="" onerror="this.style.display='none'"><span class="nm">Haiti</span></div>
 <div class="mid"><span class="score">0-1</span><span class="ft">FT</span></div>
 <div class="side away winner"><span class="nm">Scotland</span><img class="flag" src="https://crests.football-data.org/814.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group C</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/779.svg" alt="" onerror="this.style.display='none'"><span class="nm">Australia</span></div>
 <div class="mid"><span class="score">2-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Turkey</span><img class="flag" src="https://crests.football-data.org/803.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/759.svg" alt="" onerror="this.style.display='none'"><span class="nm">Germany</span></div>
 <div class="mid"><span class="score">7-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Curaçao</span><img class="flag" src="https://crests.football-data.org/curacao.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group E</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/8601.svg" alt="" onerror="this.style.display='none'"><span class="nm">Netherlands</span></div>
 <div class="mid"><span class="score">2-2</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Japan</span><img class="flag" src="https://crests.football-data.org/766.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group F</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/787.svg" alt="" onerror="this.style.display='none'"><span class="nm">Ivory Coast</span></div>
 <div class="mid"><span class="score">1-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Ecuador</span><img class="flag" src="https://crests.football-data.org/791.svg" alt="" onerror="this.style.display='none'"></div>
@@ -162,28 +171,28 @@
 <div class="meta">Group E</div>
 </div>
 <div class="datehead" data-datekey="2026-06-15">2026-06-15</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/792.svg" alt="" onerror="this.style.display='none'"><span class="nm">Sweden</span></div>
 <div class="mid"><span class="score">5-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Tunisia</span><img class="flag" src="https://crests.football-data.org/tunisia.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group F</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/760.svg" alt="" onerror="this.style.display='none'"><span class="nm">Spain</span></div>
 <div class="mid"><span class="score">0-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Cape Verde Islands</span><img class="flag" src="https://crests.football-data.org/cape_verde.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group H</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/805.svg" alt="" onerror="this.style.display='none'"><span class="nm">Belgium</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Egypt</span><img class="flag" src="https://crests.football-data.org/825.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/saudi_arabia.svg" alt="" onerror="this.style.display='none'"><span class="nm">Saudi Arabia</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Uruguay</span><img class="flag" src="https://crests.football-data.org/758.svg" alt="" onerror="this.style.display='none'"></div>
@@ -191,21 +200,21 @@
 <div class="meta">Group H</div>
 </div>
 <div class="datehead" data-datekey="2026-06-16">2026-06-16</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/iran.svg" alt="" onerror="this.style.display='none'"><span class="nm">Iran</span></div>
 <div class="mid"><span class="score">2-2</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">New Zealand</span><img class="flag" src="https://crests.football-data.org/783.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/773.svg" alt="" onerror="this.style.display='none'"><span class="nm">France</span></div>
 <div class="mid"><span class="score">3-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Senegal</span><img class="flag" src="https://crests.football-data.org/senegal.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group I</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/iraq.svg" alt="" onerror="this.style.display='none'"><span class="nm">Iraq</span></div>
 <div class="mid"><span class="score">1-4</span><span class="ft">FT</span></div>
 <div class="side away winner"><span class="nm">Norway</span><img class="flag" src="https://crests.football-data.org/813.svg" alt="" onerror="this.style.display='none'"></div>
@@ -213,35 +222,35 @@
 <div class="meta">Group I</div>
 </div>
 <div class="datehead" data-datekey="2026-06-17">2026-06-17</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/762.png" alt="" onerror="this.style.display='none'"><span class="nm">Argentina</span></div>
 <div class="mid"><span class="score">3-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Algeria</span><img class="flag" src="https://crests.football-data.org/algeria.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/816.svg" alt="" onerror="this.style.display='none'"><span class="nm">Austria</span></div>
 <div class="mid"><span class="score">3-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Jordan</span><img class="flag" src="https://crests.football-data.org/8049.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/765.svg" alt="" onerror="this.style.display='none'"><span class="nm">Portugal</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Congo DR</span><img class="flag" src="https://crests.football-data.org/congo_dr.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group K</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/770.svg" alt="" onerror="this.style.display='none'"><span class="nm">England</span></div>
 <div class="mid"><span class="score">4-2</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Croatia</span><img class="flag" src="https://crests.football-data.org/799.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group L</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/ghana.svg" alt="" onerror="this.style.display='none'"><span class="nm">Ghana</span></div>
 <div class="mid"><span class="score">1-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Panama</span><img class="flag" src="https://crests.football-data.org/panama.svg" alt="" onerror="this.style.display='none'"></div>
@@ -249,28 +258,28 @@
 <div class="meta">Group L</div>
 </div>
 <div class="datehead" data-datekey="2026-06-18">2026-06-18</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/8070.png" alt="" onerror="this.style.display='none'"><span class="nm">Uzbekistan</span></div>
 <div class="mid"><span class="score">1-3</span><span class="ft">FT</span></div>
 <div class="side away winner"><span class="nm">Colombia</span><img class="flag" src="https://crests.football-data.org/818.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group K</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/798.svg" alt="" onerror="this.style.display='none'"><span class="nm">Czechia</span></div>
 <div class="mid"><span class="score">1-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">South Africa</span><img class="flag" src="https://crests.football-data.org/9396.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group A</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/788.svg" alt="" onerror="this.style.display='none'"><span class="nm">Switzerland</span></div>
 <div class="mid"><span class="score">4-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Bosnia-Herzegovina</span><img class="flag" src="https://crests.football-data.org/bosnia.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group B</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'"><span class="nm">Canada</span></div>
 <div class="mid"><span class="score">6-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Qatar</span><img class="flag" src="https://crests.football-data.org/8030.svg" alt="" onerror="this.style.display='none'"></div>
@@ -278,21 +287,21 @@
 <div class="meta">Group B</div>
 </div>
 <div class="datehead" data-datekey="2026-06-19">2026-06-19</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/769.svg" alt="" onerror="this.style.display='none'"><span class="nm">Mexico</span></div>
 <div class="mid"><span class="score">1-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">South Korea</span><img class="flag" src="https://crests.football-data.org/772.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group A</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/usa.svg" alt="" onerror="this.style.display='none'"><span class="nm">United States</span></div>
 <div class="mid"><span class="score">2-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Australia</span><img class="flag" src="https://crests.football-data.org/779.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/814.svg" alt="" onerror="this.style.display='none'"><span class="nm">Scotland</span></div>
 <div class="mid"><span class="score">0-1</span><span class="ft">FT</span></div>
 <div class="side away winner"><span class="nm">Morocco</span><img class="flag" src="https://crests.football-data.org/morocco.svg" alt="" onerror="this.style.display='none'"></div>
@@ -300,28 +309,28 @@
 <div class="meta">Group C</div>
 </div>
 <div class="datehead" data-datekey="2026-06-20">2026-06-20</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'"><span class="nm">Brazil</span></div>
 <div class="mid"><span class="score">3-0</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Haiti</span><img class="flag" src="https://crests.football-data.org/haiti.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group C</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/803.svg" alt="" onerror="this.style.display='none'"><span class="nm">Turkey</span></div>
 <div class="mid"><span class="score">0-1</span><span class="ft">FT</span></div>
 <div class="side away winner"><span class="nm">Paraguay</span><img class="flag" src="https://crests.football-data.org/761.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side winner"><img class="flag" src="https://crests.football-data.org/8601.svg" alt="" onerror="this.style.display='none'"><span class="nm">Netherlands</span></div>
 <div class="mid"><span class="score">5-1</span><span class="ft">FT</span></div>
 <div class="side away"><span class="nm">Sweden</span><img class="flag" src="https://crests.football-data.org/792.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group F</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/759.svg" alt="" onerror="this.style.display='none'"><span class="nm">Germany</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-20T20:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Ivory Coast</span><img class="flag" src="https://crests.football-data.org/787.svg" alt="" onerror="this.style.display='none'"></div>
@@ -329,35 +338,35 @@
 <div class="meta">Group E</div>
 </div>
 <div class="datehead" data-datekey="2026-06-21">2026-06-21</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/791.svg" alt="" onerror="this.style.display='none'"><span class="nm">Ecuador</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-21T00:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Curaçao</span><img class="flag" src="https://crests.football-data.org/curacao.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group E</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/tunisia.svg" alt="" onerror="this.style.display='none'"><span class="nm">Tunisia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-21T04:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Japan</span><img class="flag" src="https://crests.football-data.org/766.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group F</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/760.svg" alt="" onerror="this.style.display='none'"><span class="nm">Spain</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-21T16:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Saudi Arabia</span><img class="flag" src="https://crests.football-data.org/saudi_arabia.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group H</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/805.svg" alt="" onerror="this.style.display='none'"><span class="nm">Belgium</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-21T19:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Iran</span><img class="flag" src="https://crests.football-data.org/iran.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/758.svg" alt="" onerror="this.style.display='none'"><span class="nm">Uruguay</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-21T22:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Cape Verde Islands</span><img class="flag" src="https://crests.football-data.org/cape_verde.svg" alt="" onerror="this.style.display='none'"></div>
@@ -365,21 +374,21 @@
 <div class="meta">Group H</div>
 </div>
 <div class="datehead" data-datekey="2026-06-22">2026-06-22</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/783.svg" alt="" onerror="this.style.display='none'"><span class="nm">New Zealand</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-22T01:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Egypt</span><img class="flag" src="https://crests.football-data.org/825.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/762.png" alt="" onerror="this.style.display='none'"><span class="nm">Argentina</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-22T17:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Austria</span><img class="flag" src="https://crests.football-data.org/816.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/773.svg" alt="" onerror="this.style.display='none'"><span class="nm">France</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-22T21:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Iraq</span><img class="flag" src="https://crests.football-data.org/iraq.svg" alt="" onerror="this.style.display='none'"></div>
@@ -387,35 +396,35 @@
 <div class="meta">Group I</div>
 </div>
 <div class="datehead" data-datekey="2026-06-23">2026-06-23</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/813.svg" alt="" onerror="this.style.display='none'"><span class="nm">Norway</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-23T00:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Senegal</span><img class="flag" src="https://crests.football-data.org/senegal.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group I</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/8049.png" alt="" onerror="this.style.display='none'"><span class="nm">Jordan</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-23T03:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Algeria</span><img class="flag" src="https://crests.football-data.org/algeria.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/765.svg" alt="" onerror="this.style.display='none'"><span class="nm">Portugal</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-23T17:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Uzbekistan</span><img class="flag" src="https://crests.football-data.org/8070.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group K</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/770.svg" alt="" onerror="this.style.display='none'"><span class="nm">England</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-23T20:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Ghana</span><img class="flag" src="https://crests.football-data.org/ghana.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group L</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/panama.svg" alt="" onerror="this.style.display='none'"><span class="nm">Panama</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-23T23:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Croatia</span><img class="flag" src="https://crests.football-data.org/799.svg" alt="" onerror="this.style.display='none'"></div>
@@ -423,35 +432,35 @@
 <div class="meta">Group L</div>
 </div>
 <div class="datehead" data-datekey="2026-06-24">2026-06-24</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/818.svg" alt="" onerror="this.style.display='none'"><span class="nm">Colombia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-24T02:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Congo DR</span><img class="flag" src="https://crests.football-data.org/congo_dr.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group K</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/788.svg" alt="" onerror="this.style.display='none'"><span class="nm">Switzerland</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-24T19:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Canada</span><img class="flag" src="https://crests.football-data.org/canada.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group B</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="B"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/bosnia.svg" alt="" onerror="this.style.display='none'"><span class="nm">Bosnia-Herzegovina</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-24T19:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Qatar</span><img class="flag" src="https://crests.football-data.org/8030.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group B</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/morocco.svg" alt="" onerror="this.style.display='none'"><span class="nm">Morocco</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-24T22:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Haiti</span><img class="flag" src="https://crests.football-data.org/haiti.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group C</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="C"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/814.svg" alt="" onerror="this.style.display='none'"><span class="nm">Scotland</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-24T22:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Brazil</span><img class="flag" src="https://crests.football-data.org/764.svg" alt="" onerror="this.style.display='none'"></div>
@@ -459,42 +468,42 @@
 <div class="meta">Group C</div>
 </div>
 <div class="datehead" data-datekey="2026-06-25">2026-06-25</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/798.svg" alt="" onerror="this.style.display='none'"><span class="nm">Czechia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T01:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Mexico</span><img class="flag" src="https://crests.football-data.org/769.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group A</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="A"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/9396.svg" alt="" onerror="this.style.display='none'"><span class="nm">South Africa</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T01:00:00Z">—</span></div>
 <div class="side away"><span class="nm">South Korea</span><img class="flag" src="https://crests.football-data.org/772.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group A</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/791.svg" alt="" onerror="this.style.display='none'"><span class="nm">Ecuador</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T20:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Germany</span><img class="flag" src="https://crests.football-data.org/759.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group E</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="E"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/curacao.svg" alt="" onerror="this.style.display='none'"><span class="nm">Curaçao</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T20:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Ivory Coast</span><img class="flag" src="https://crests.football-data.org/787.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group E</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/tunisia.svg" alt="" onerror="this.style.display='none'"><span class="nm">Tunisia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T23:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Netherlands</span><img class="flag" src="https://crests.football-data.org/8601.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group F</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="F"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/766.svg" alt="" onerror="this.style.display='none'"><span class="nm">Japan</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-25T23:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Sweden</span><img class="flag" src="https://crests.football-data.org/792.svg" alt="" onerror="this.style.display='none'"></div>
@@ -502,28 +511,28 @@
 <div class="meta">Group F</div>
 </div>
 <div class="datehead" data-datekey="2026-06-26">2026-06-26</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/803.svg" alt="" onerror="this.style.display='none'"><span class="nm">Turkey</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-26T02:00:00Z">—</span></div>
 <div class="side away"><span class="nm">United States</span><img class="flag" src="https://crests.football-data.org/usa.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="D"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/761.svg" alt="" onerror="this.style.display='none'"><span class="nm">Paraguay</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-26T02:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Australia</span><img class="flag" src="https://crests.football-data.org/779.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group D</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/813.svg" alt="" onerror="this.style.display='none'"><span class="nm">Norway</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-26T19:00:00Z">—</span></div>
 <div class="side away"><span class="nm">France</span><img class="flag" src="https://crests.football-data.org/773.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group I</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="I"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/senegal.svg" alt="" onerror="this.style.display='none'"><span class="nm">Senegal</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-26T19:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Iraq</span><img class="flag" src="https://crests.football-data.org/iraq.svg" alt="" onerror="this.style.display='none'"></div>
@@ -531,56 +540,56 @@
 <div class="meta">Group I</div>
 </div>
 <div class="datehead" data-datekey="2026-06-27">2026-06-27</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/758.svg" alt="" onerror="this.style.display='none'"><span class="nm">Uruguay</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T00:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Spain</span><img class="flag" src="https://crests.football-data.org/760.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group H</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="H"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/cape_verde.svg" alt="" onerror="this.style.display='none'"><span class="nm">Cape Verde Islands</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T00:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Saudi Arabia</span><img class="flag" src="https://crests.football-data.org/saudi_arabia.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group H</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/783.svg" alt="" onerror="this.style.display='none'"><span class="nm">New Zealand</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T03:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Belgium</span><img class="flag" src="https://crests.football-data.org/805.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="G"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/825.svg" alt="" onerror="this.style.display='none'"><span class="nm">Egypt</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T03:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Iran</span><img class="flag" src="https://crests.football-data.org/iran.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group G</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/panama.svg" alt="" onerror="this.style.display='none'"><span class="nm">Panama</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T21:00:00Z">—</span></div>
 <div class="side away"><span class="nm">England</span><img class="flag" src="https://crests.football-data.org/770.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group L</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="L"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/799.svg" alt="" onerror="this.style.display='none'"><span class="nm">Croatia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T21:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Ghana</span><img class="flag" src="https://crests.football-data.org/ghana.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group L</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/818.svg" alt="" onerror="this.style.display='none'"><span class="nm">Colombia</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T23:30:00Z">—</span></div>
 <div class="side away"><span class="nm">Portugal</span><img class="flag" src="https://crests.football-data.org/765.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group K</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="K"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/congo_dr.svg" alt="" onerror="this.style.display='none'"><span class="nm">Congo DR</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-27T23:30:00Z">—</span></div>
 <div class="side away"><span class="nm">Uzbekistan</span><img class="flag" src="https://crests.football-data.org/8070.png" alt="" onerror="this.style.display='none'"></div>
@@ -588,21 +597,21 @@
 <div class="meta">Group K</div>
 </div>
 <div class="datehead" data-datekey="2026-06-28">2026-06-28</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/8049.png" alt="" onerror="this.style.display='none'"><span class="nm">Jordan</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-28T02:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Argentina</span><img class="flag" src="https://crests.football-data.org/762.png" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="J"><div class="mrow">
 <div class="side"><img class="flag" src="https://crests.football-data.org/algeria.svg" alt="" onerror="this.style.display='none'"><span class="nm">Algeria</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-28T02:00:00Z">—</span></div>
 <div class="side away"><span class="nm">Austria</span><img class="flag" src="https://crests.football-data.org/816.svg" alt="" onerror="this.style.display='none'"></div>
 </div>
 <div class="meta">Group J</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-28T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -610,14 +619,14 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-06-29">2026-06-29</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-29T17:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-29T20:30:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -625,21 +634,21 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-06-30">2026-06-30</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-30T01:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-30T17:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-06-30T21:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -647,21 +656,21 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-07-01">2026-07-01</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-01T01:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-01T16:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-01T20:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -669,21 +678,21 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-07-02">2026-07-02</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-02T00:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-02T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-02T23:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -691,21 +700,21 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-07-03">2026-07-03</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-03T03:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-03T18:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-03T22:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -713,21 +722,21 @@
 <div class="meta">Round of 32</div>
 </div>
 <div class="datehead" data-datekey="2026-07-04">2026-07-04</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-04T01:30:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 32</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-04T17:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 16</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-04T21:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -735,7 +744,7 @@
 <div class="meta">Round of 16</div>
 </div>
 <div class="datehead" data-datekey="2026-07-05">2026-07-05</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-05T20:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -743,14 +752,14 @@
 <div class="meta">Round of 16</div>
 </div>
 <div class="datehead" data-datekey="2026-07-06">2026-07-06</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-06T00:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 16</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-06T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -758,21 +767,21 @@
 <div class="meta">Round of 16</div>
 </div>
 <div class="datehead" data-datekey="2026-07-07">2026-07-07</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-07T00:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 16</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-07T16:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
 </div>
 <div class="meta">Round of 16</div>
 </div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-07T20:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -780,7 +789,7 @@
 <div class="meta">Round of 16</div>
 </div>
 <div class="datehead" data-datekey="2026-07-09">2026-07-09</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-09T20:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -788,7 +797,7 @@
 <div class="meta">Quarter-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-10">2026-07-10</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-10T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -796,7 +805,7 @@
 <div class="meta">Quarter-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-11">2026-07-11</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-11T21:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -804,7 +813,7 @@
 <div class="meta">Quarter-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-12">2026-07-12</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-12T01:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -812,7 +821,7 @@
 <div class="meta">Quarter-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-14">2026-07-14</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-14T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -820,7 +829,7 @@
 <div class="meta">Semi-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-15">2026-07-15</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-15T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -828,7 +837,7 @@
 <div class="meta">Semi-final</div>
 </div>
 <div class="datehead" data-datekey="2026-07-18">2026-07-18</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-18T21:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -836,7 +845,7 @@
 <div class="meta">3rd-place</div>
 </div>
 <div class="datehead" data-datekey="2026-07-19">2026-07-19</div>
-<div class="match"><div class="mrow">
+<div class="match" data-group="KO"><div class="mrow">
 <div class="side tbd"><span class="nm">TBD</span></div>
 <div class="mid"><span class="time" data-utc="2026-07-19T19:00:00Z">—</span></div>
 <div class="side away tbd"><span class="nm">TBD</span></div>
@@ -859,17 +868,87 @@
         }
       });
 
-      // Date headers -> local "Weekday D Mon" (uses each day's first match for the local date)
-      document.querySelectorAll('.datehead[data-datekey]').forEach(function(head){
+      // Date headers -> local "Weekday D Mon" (uses each day's first match for the local date).
+      // Also record each header's LOCAL date (YYYY-MM-DD) so we can scroll to today.
+      var heads = document.querySelectorAll('.datehead[data-datekey]');
+      function localKey(dt){
+        var p = function(n){ return String(n).padStart(2,'0'); };
+        return dt.getFullYear() + '-' + p(dt.getMonth()+1) + '-' + p(dt.getDate());
+      }
+      heads.forEach(function(head){
         var firstMatch = head.nextElementSibling;
         var timeEl = firstMatch && firstMatch.querySelector('[data-utc]');
         var iso = timeEl ? timeEl.getAttribute('data-utc') : (head.getAttribute('data-datekey') + 'T12:00:00Z');
         var d = new Date(iso);
         if(!isNaN(d)){
           head.textContent = d.toLocaleDateString([], {weekday:'long', day:'numeric', month:'short'});
+          head.setAttribute('data-localday', localKey(d));  // viewer-local date
         }
       });
+
+      // Scroll to today's group (viewer-local). If today is before the tournament,
+      // stay at the top; if a date is missing (no matches that day), pick the next
+      // day that has matches; if the tournament is over, go to the last day.
+      var todayKey = localKey(new Date());
+      var target = null;
+      var firstKey = heads.length ? heads[0].getAttribute('data-localday') : null;
+      var lastKey  = heads.length ? heads[heads.length-1].getAttribute('data-localday') : null;
+
+      if(firstKey && todayKey < firstKey){
+        target = null;                       // tournament hasn't started — top of page
+      } else if(lastKey && todayKey > lastKey){
+        target = heads[heads.length-1];      // tournament finished — last day
+      } else {
+        // find exact today, else the first day on/after today
+        for(var i=0;i<heads.length;i++){
+          var k = heads[i].getAttribute('data-localday');
+          if(k === todayKey){ target = heads[i]; break; }
+          if(k > todayKey){ target = heads[i]; break; }  // next upcoming day
+        }
+      }
+
+      if(target){
+        // slight delay so fonts/layout settle, then scroll with a little top offset
+        setTimeout(function(){
+          var y = target.getBoundingClientRect().top + window.pageYOffset - 12;
+          window.scrollTo({top:y, behavior:'instant' in window ? 'instant' : 'auto'});
+        }, 60);
+      }
     }catch(e){ /* if anything fails, the UTC fallbacks remain visible */ }
+
+    // ---- Group filtering ----
+    try{
+      var buttons = document.querySelectorAll('.fbtn');
+      var matches = document.querySelectorAll('.match');
+      var headers = document.querySelectorAll('.datehead');
+
+      function applyFilter(f){
+        // show/hide matches
+        matches.forEach(function(mt){
+          var g = mt.getAttribute('data-group');
+          var show = (f === 'ALL') || (g === f);
+          mt.classList.toggle('hidden', !show);
+        });
+        // hide date headers that now have no visible matches under them
+        headers.forEach(function(h){
+          var el = h.nextElementSibling, anyVisible = false;
+          while(el && !el.classList.contains('datehead')){
+            if(el.classList.contains('match') && !el.classList.contains('hidden')){ anyVisible = true; break; }
+            el = el.nextElementSibling;
+          }
+          h.classList.toggle('hidden', !anyVisible);
+        });
+      }
+
+      buttons.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          buttons.forEach(function(b){ b.classList.remove('active'); });
+          btn.classList.add('active');
+          applyFilter(btn.getAttribute('data-filter'));
+          window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+        });
+      });
+    }catch(e){ /* filtering optional; page still works without it */ }
   })();
   </script>
 </div></body></html>
