@@ -61,6 +61,11 @@
   .note .ni{flex:none;font-size:1.1rem}
   .sectlabel{font-family:'Archivo';font-weight:900;text-transform:uppercase;font-size:1.05rem;margin:26px 2px 12px;display:flex;align-items:center;gap:10px;text-shadow:0 0 16px rgba(22,242,196,.25)}
   .sectlabel::before{content:"";height:16px;width:5px;border-radius:3px;background:var(--neon);box-shadow:0 0 10px var(--neon)}
+  .method{display:flex;align-items:center;gap:10px;margin:22px 2px 10px}
+  .mbadge{font-family:'Archivo';font-weight:900;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#04060d;background:linear-gradient(135deg,var(--neon),var(--neon2));border-radius:6px;padding:3px 9px;flex:none}
+  .mbadge.gold{background:linear-gradient(135deg,var(--gold),#ff9f1a)}
+  .mtitle{font-family:'Archivo';font-weight:800;font-size:1rem;color:var(--ink)}
+  .hint{display:inline;color:var(--mut);font-size:.84rem;font-style:italic}
   footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
 </head><body>
@@ -91,18 +96,28 @@
 <div class="note"><span class="ni">💡</span><div>If tapping the link opens a search instead of Safari, copy it and paste it straight into Safari’s address bar. The link <b>must</b> open in Safari, not Chrome.</div></div>
 </div>
 <div class="panel" id="android">
-<p class="intro" style="margin-bottom:14px">Android can’t subscribe from the phone directly — you add the link once on a <strong>computer</strong> via Google Calendar, then it syncs to your phone automatically.</p>
+<p class="intro" style="margin-bottom:14px">Android can’t subscribe straight from the calendar app — you add the link through <strong>Google Calendar’s website</strong>. There are two ways: on a computer (easiest), or using just your phone with a trick.</p>
 <div class="linkbox blue"><span class="linkurl" id="httpsUrl">https://raw.githubusercontent.com/mohdkazim/worldcup/main/worldcup2026.ics</span><button class="copybtn" data-copy="httpsUrl">Copy</button></div>
+<div class="method"><span class="mbadge">Method A</span><span class="mtitle">On a computer — easiest</span></div>
 <div class="stepcard">
-<div class="step"><span class="stepnum">1</span><div class="steptxt">Tap <b>Copy</b> on the link above (the blue button) — or email it to yourself so you can open it on a computer.</div></div>
+<div class="step"><span class="stepnum">1</span><div class="steptxt">Tap <b>Copy</b> on the link above (the blue button) — or email it to yourself so you can open it on the computer.</div></div>
 <div class="step"><span class="stepnum">2</span><div class="steptxt">On a <b>computer</b>, go to <span class="k">calendar.google.com</span> and sign in with the <b>same Google account</b> that’s on your phone.</div></div>
 <div class="step"><span class="stepnum">3</span><div class="steptxt">On the left side, find <b>“Other calendars”</b> and click the <span class="k">+</span> next to it.</div></div>
 <div class="step"><span class="stepnum">4</span><div class="steptxt">Choose <b>“From URL”</b> from the menu.</div></div>
 <div class="step"><span class="stepnum">5</span><div class="steptxt">Paste the link into the box and click <span class="k">Add calendar</span>.</div></div>
 <div class="step"><span class="stepnum">6</span><div class="steptxt">Open the <b>Google Calendar</b> app on your phone — the matches sync in automatically (give it a minute).</div></div>
 </div>
-<div class="note"><span class="ni">⚠️</span><div>The <b>“From URL”</b> option only exists on the Google Calendar <b>website on a computer</b> — not in the phone app. That one step has to be done on a computer; after that everything stays on your phone.</div></div>
-<div class="note"><span class="ni">💡</span><div>Don’t paste this link into your phone’s browser — on Android it just downloads a file and won’t subscribe. Use the computer steps above instead.</div></div>
+<div class="method"><span class="mbadge gold">Method B</span><span class="mtitle">No computer? Use your phone</span></div>
+<p class="intro" style="margin:0 0 12px;text-align:left;font-size:.88rem">The trick: open Google Calendar in <b>Chrome on your phone</b>, then switch on <b>“Desktop site”</b> — that unlocks the same “From URL” option the computer has.</p>
+<div class="stepcard">
+<div class="step"><span class="stepnum">1</span><div class="steptxt">Tap <b>Copy</b> on the blue link above.</div></div>
+<div class="step"><span class="stepnum">2</span><div class="steptxt">Open the <b>Chrome</b> app on your phone and go to <span class="k">calendar.google.com</span> (sign in if asked).</div></div>
+<div class="step"><span class="stepnum">3</span><div class="steptxt">Tap the <b>⋮</b> menu (three dots, top-right of Chrome), then tick <span class="k">Desktop site</span>. The page reloads looking like a computer screen.</div></div>
+<div class="step"><span class="stepnum">4</span><div class="steptxt">On the left, find <b>“Other calendars”</b> and tap the <span class="k">+</span>, then choose <b>“From URL”</b>. <span class="hint">(You may need to pinch-zoom — the buttons are small in desktop mode.)</span></div></div>
+<div class="step"><span class="stepnum">5</span><div class="steptxt"><b>Paste</b> the link into the box and tap <span class="k">Add calendar</span>.</div></div>
+<div class="step"><span class="stepnum">6</span><div class="steptxt">Open the <b>Google Calendar</b> app — the matches are now syncing in. You can turn off “Desktop site” in Chrome afterwards.</div></div>
+</div>
+<div class="note"><span class="ni">💡</span><div>Whichever method you use, do <b>not</b> just paste the link into a normal phone browser tab — without “Desktop site” it only downloads a file and won’t subscribe.</div></div>
 </div>
 <div class="sectlabel">What you get</div>
 <div class="stepcard">
