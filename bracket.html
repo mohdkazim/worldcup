@@ -133,7 +133,7 @@
 <header class="hero">
 <p class="kicker">FIFA World Cup</p>
 <h1 class="title">Knockout <span class="yr">Bracket</span></h1>
-<p class="sub">Winners advance as results come in · updated Sat, 04 Jul 2026 22:00:10 GMT</p>
+<p class="sub">Winners advance as results come in · updated Sat, 04 Jul 2026 22:18:51 GMT</p>
 <nav class="nav"><a href="standings.html">Standings</a><a href="schedule.html">Schedule</a><a class="active" href="bracket.html">Bracket</a><a href="calendar.html">Calendar</a></nav>
 <div class="viewtoggle"><button class="vbtn active" data-view="list">List</button><button class="vbtn" data-view="tree">Tree</button><button class="vbtn" data-view="circle">Circle</button></div>
 <div class="todaywrap"><button id="todayBtn" class="todaybtn">Next 24 hours</button></div>
@@ -281,12 +281,21 @@
         var pop = document.getElementById('circpop');
         if(!svg || !pop) return;
 
-        // Mark today (next 24h, gold) + live nodes are already class-tagged server-side.
-        (function markCircleToday(){
-          var now = Date.now(), cutoff = now + 24*60*60*1000;
+        // Mark "today" (gold, next 24h) and "live" (red, in progress) from the CLOCK,
+        // not API status — the free tier lags, so a running match can still read TIMED.
+        // Live = now is between kickoff and kickoff + ~2h15m (match + halftime + stoppage).
+        (function markCircleTime(){
+          var now = Date.now();
+          var todayCutoff = now + 24*60*60*1000;
+          var MATCH_MS = (135) * 60 * 1000; // 2h15m window
           svg.querySelectorAll('.cnode[data-utc]').forEach(function(g){
             var t = new Date(g.getAttribute('data-utc')).getTime();
-            if(!isNaN(t) && t >= now && t <= cutoff) g.classList.add('today');
+            if(isNaN(t)) return;
+            if(t <= now && now <= t + MATCH_MS){
+              g.classList.add('live');       // in progress right now
+            } else if(t >= now && t <= todayCutoff){
+              g.classList.add('today');      // upcoming in next 24h
+            }
           });
         })();
 
@@ -347,16 +356,25 @@
           litTeam = team;
         }
 
-        // Node tap: open popup. Also toggle path for that node's team.
+        // Node interaction:
+        //   single tap  -> trace that team's path (toggle)
+        //   double tap  -> open match details popup
+        var tapTimer = null, TAP_DELAY = 260;
         svg.querySelectorAll('.cnode').forEach(function(g){
           g.addEventListener('click', function(ev){
             ev.stopPropagation();
-            var team = g.getAttribute('data-team');
-            var raw = g.getAttribute('data-match');
-            // Light the path for context, then open details.
-            if(team) litPath(team);
-            if(raw){
-              try { openPopup(JSON.parse(raw)); } catch(e){}
+            if(tapTimer){
+              // Second tap within the window = double tap -> popup.
+              clearTimeout(tapTimer); tapTimer = null;
+              var raw = g.getAttribute('data-match');
+              if(raw){ try { openPopup(JSON.parse(raw)); } catch(e){} }
+            } else {
+              // First tap: wait briefly to see if a second one follows.
+              tapTimer = setTimeout(function(){
+                tapTimer = null;
+                var team = g.getAttribute('data-team');
+                if(team) litPath(team);
+              }, TAP_DELAY);
             }
           });
         });
