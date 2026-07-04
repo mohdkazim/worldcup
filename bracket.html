@@ -30,7 +30,7 @@
   .nav a{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;text-decoration:none;color:var(--ink);padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);transition:.15s}
   .nav a.active{background:transparent;color:var(--neon);border-color:var(--neon);box-shadow:0 0 16px rgba(22,242,196,.35),inset 0 0 12px rgba(22,242,196,.12)}
   .nav a:hover{border-color:var(--neon2);box-shadow:0 0 14px rgba(46,139,255,.3)}
-  .viewtoggle{display:flex;gap:8px;justify-content:center;margin-top:16px}
+  .viewtoggle{display:flex;gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap}
   .todaywrap{display:flex;justify-content:center;margin-top:12px}
   .todaybtn{font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.74rem;color:var(--gold);background:rgba(255,207,58,.08);border:1px solid rgba(255,207,58,.5);border-radius:999px;padding:8px 20px;cursor:pointer;transition:.12s}
   .todaybtn:hover{background:rgba(255,207,58,.16);box-shadow:0 0 16px rgba(255,207,58,.3)}
@@ -91,6 +91,7 @@
   .circsvg .trophy{font-size:34px;dominant-baseline:middle}
   .circhint{text-align:center;font-family:'Roboto Mono';font-size:.66rem;color:var(--mut);margin-top:8px}
   .tcard.highlight{outline:2px solid var(--neon);outline-offset:2px;box-shadow:0 0 24px rgba(22,242,196,.55)}
+  .tie.highlight{outline:2px solid var(--neon);outline-offset:2px;box-shadow:0 0 24px rgba(22,242,196,.55)}
   footer{margin-top:30px;color:var(--mut);font-size:.7rem;font-family:'Roboto Mono';text-align:center;line-height:1.7}
   </style>
 </head><body>
@@ -99,7 +100,7 @@
 <header class="hero">
 <p class="kicker">FIFA World Cup</p>
 <h1 class="title">Knockout <span class="yr">Bracket</span></h1>
-<p class="sub">Winners advance as results come in · updated Sat, 04 Jul 2026 11:00:03 GMT</p>
+<p class="sub">Winners advance as results come in · updated Sat, 04 Jul 2026 11:09:24 GMT</p>
 <nav class="nav"><a href="standings.html">Standings</a><a href="schedule.html">Schedule</a><a class="active" href="bracket.html">Bracket</a><a href="calendar.html">Calendar</a></nav>
 <div class="viewtoggle"><button class="vbtn active" data-view="list">List</button><button class="vbtn" data-view="tree">Tree</button><button class="vbtn" data-view="circle">Circle</button></div>
 <div class="todaywrap"><button id="todayBtn" class="todaybtn">Next 24 hours</button></div>
@@ -145,25 +146,36 @@
       // Deep-link #match=N -> tree + scroll to card.
       function showMatch(n){
         if(!n) return;
-        vbtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-view')==='tree'); });
-        listv.style.display='none'; treev.style.display='block';
-        var card = treev.querySelector('.tcard[data-match="'+n+'"]');
-        if(card){
-          setTimeout(function(){
+        // Find the match card. The Tree has most rounds; the List has ALL matches
+        // (including the third-place playoff M103, which the Tree omits). Prefer the
+        // Tree for the visual bracket, but fall back to the List if it's not there.
+        var treeCard = treev.querySelector('.tcard[data-match="'+n+'"]');
+        var listCard = listv.querySelector('.tie[data-match="'+n+'"]');
+        var useTree = !!treeCard;
+        var targetView = useTree ? 'tree' : 'list';
+        // Activate the right view (button state + display).
+        vbtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-view')===targetView); });
+        showView(targetView);
+        var card = useTree ? treeCard : listCard;
+        if(!card) return;
+        setTimeout(function(){
+          if(useTree){
             var scroller = treev.querySelector('.treescroll');
             if(scroller){
               var cR = card.getBoundingClientRect(), sR = scroller.getBoundingClientRect();
               scroller.scrollLeft += (cR.left - sR.left) - (sR.width/2) + (cR.width/2);
             }
-            var y = card.getBoundingClientRect().top + window.pageYOffset - 140;
-            window.scrollTo({top:y, behavior:'smooth'});
-            card.classList.add('highlight');
-            setTimeout(function(){ card.classList.remove('highlight'); }, 3000);
-          }, 80);
-        }
+          }
+          var y = card.getBoundingClientRect().top + window.pageYOffset - 140;
+          window.scrollTo({top:y, behavior:'smooth'});
+          card.classList.add('highlight');
+          setTimeout(function(){ card.classList.remove('highlight'); }, 3000);
+        }, 120);
       }
       function applyHash(){ var m = (location.hash||'').match(/match=([0-9]+)/); if(m) showMatch(m[1]); }
-      applyHash();
+      // Run once the page is fully laid out (deep-link from calendar lands here).
+      if(document.readyState === 'complete') applyHash();
+      else window.addEventListener('load', applyHash);
       window.addEventListener('hashchange', applyHash);
 
       // ── Upcoming matches: highlight (gold) + scroll, in whichever view is active. ──
